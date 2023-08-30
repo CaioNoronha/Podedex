@@ -9,7 +9,7 @@ struct HomeView: View {
     private let colors: [Color] = [.red, .green, .blue, .yellow]
     
     private let adaptativeColumns = [
-        GridItem(.adaptive(minimum: 150), spacing: -10)
+        GridItem(.adaptive(minimum: 180), spacing: -5)
     ]
     
     init(viewModel: HomeViewModelProtocol) {
@@ -24,20 +24,45 @@ struct HomeView: View {
                 LazyVGrid(columns: adaptativeColumns, spacing: 10) {
                     
                     ForEach(data, id: \.self) { number in
-                        // \.self just work because the data is identiafle
-                        //Create a component like a cell,
-                        //Change hardcoded values
-                        //Font can be padron
-                        ZStack {
-                            Rectangle()
-                                .frame(width: 180, height: 130)
-                                .foregroundColor(colors[number%4])
-                                .cornerRadius(30)
-                            
-                            Text("Bulbasaur")
-                                .foregroundColor(.white)
-                                .font(.system(size: 20, weight: .medium, design: .rounded))
-                        }
+                        
+                        //Each Cell Configuration
+                        RoundedRectangle(cornerRadius: 10)
+                            .frame(width: 180, height: 110)
+                            .foregroundColor(.green)
+                        
+                            //Using the component created
+                            .overlay {
+                                
+                                //Put Itens Horizontaly
+                                HStack(spacing: 30) {
+                                    
+                                    VStack(spacing: 10) {
+                                        Text("Bulbasaur")
+                                        //Add Spacing Between Components
+                                            .padding(.bottom, 10)
+                                        
+                                        Group {
+                                            Text("Grass")
+                                            Text("Poison")
+                                        }
+                                        .background {
+                                            Capsule()
+                                                .fill(.ultraThinMaterial)
+                                                .padding(.horizontal, -10)
+                                        }
+                                        .font(.system(size: 12))
+                                        
+                                        
+                                    }
+                                    .foregroundColor(.white)
+                                    ZStack {
+                                        
+                                        Image(systemName: "pencil")
+                                            .font(.system(size: 50))
+                                        
+                                    }
+                                }
+                            }
                     }
                 }
             }
